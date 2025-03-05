@@ -67,21 +67,21 @@ Monitoring is the process of keeping an eye on these metrics over time to unders
 
 
 ```bash
-eksctl create cluster --name=observability \
-                      --region=us-east-1 \
-                      --zones=us-east-1a,us-east-1b \
+eksctl create cluster --name=eks-testing \
+                      --region=ap-south-1 \
+                      --zones=ap-south-1a,ap-south-1b,ap-south-1c \
                       --without-nodegroup
 ```
 ```bash
 eksctl utils associate-iam-oidc-provider \
     --region us-east-1 \
-    --cluster observability \
+    --cluster eks-testing \
     --approve
 ```
 ```bash
-eksctl create nodegroup --cluster=observability \
-                        --region=us-east-1 \
-                        --name=observability-ng-private \
+eksctl create nodegroup --cluster=eks-testing \
+                        --region=ap-south-1 \
+                        --name=eks-testing-ng \
                         --node-type=t3.medium \
                         --nodes-min=2 \
                         --nodes-max=3 \
@@ -95,7 +95,7 @@ eksctl create nodegroup --cluster=observability \
                         --node-private-networking
 
 # Update ./kube/config file
-aws eks update-kubeconfig --name observability
+aws eks update-kubeconfig --name eks-testing
 ```
 
 ### 🧰 Step 2: Install kube-prometheus-stack
@@ -147,5 +147,5 @@ kubectl delete ns monitoring
 ```
 - **Delete Cluster & everything else**:
 ```bash
-eksctl delete cluster --name observability
+eksctl delete cluster --name eks-testing
 ```

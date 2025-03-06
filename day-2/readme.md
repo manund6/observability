@@ -74,7 +74,7 @@ eksctl create cluster --name=eks-testing \
 ```
 ```bash
 eksctl utils associate-iam-oidc-provider \
-    --region us-east-1 \
+    --region ap-south-1 \
     --cluster eks-testing \
     --approve
 ```
